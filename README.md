@@ -1,9 +1,12 @@
 # Moving MNIST with Annotations
 This repository provides a MovingMNIST class to load the Moving MNIST with annotations dataset, which contains sequences of MNIST digits moving within a frame. It is based on PyTorch's VisionDataset and allows easy access to both the sequences and their annotations. The class also provides a utility to download the dataset from a specified mirror.
+![Alt text](images/seq0.gif)
+![Alt text](images/seq1.gif)
+![Alt text](images/seq2.gif)
+![Alt text](images/seq3.gif)
+![Alt text](images/seq4.gif)
+![Alt text](images/seq5.gif)
 
-![Alt text](images/example.png)
-    
-    
 ## Installation
 To use this code, you will need to have the following dependencies installed:
 * Python 3.6+

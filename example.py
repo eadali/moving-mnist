@@ -1,14 +1,16 @@
 from torch.utils.data import DataLoader
 from torchvision.utils import draw_bounding_boxes
-import torchvision.transforms.functional as F
 from moving_mnist import MovingMNIST
-from matplotlib import pyplot as plt
+import numpy as np
+from PIL import Image
+import imageio
 import os
 
 
-root = './data/processed/MovingMNIST'
-num_sequences = 2
-num_frame = 4
+root = './data/processed/MovingMNIST/'
+output = './images/'
+num_sequences = 6
+size = (128, 128)
 
 
 dataset = MovingMNIST(root=root, download=False)
@@ -16,15 +18,21 @@ mnist = DataLoader(dataset, batch_size=num_sequences, shuffle=True)
 
 
 sequences, annotations = next(iter(mnist))
-fig, axs = plt.subplots(num_sequences, num_frame)
+num_frames = sequences.shape[1]
 for seq_idx in range(num_sequences):
-    for frame_idx in range(num_frame):
+    image_seq = []
+    for frame_idx in range(num_frames):
         frame = sequences[seq_idx, frame_idx]
         boxes = annotations[seq_idx, frame_idx, :, 1:]
         labels = annotations[seq_idx, frame_idx, :, 0]
         labels = [str(i.item()) for i in labels]
         draw = draw_bounding_boxes(frame, boxes, labels=labels,
                                    colors='red', width=1)
-        axs[seq_idx, frame_idx].imshow(F.to_pil_image(draw))
+        image = draw.permute(1, 2, 0)
+        image = Image.fromarray(image.numpy().astype(np.uint8))
+        image = image.resize(size, Image.LANCZOS)
+        image_seq.append(image)
 
-plt.savefig(os.path.join(root, 'output.png'))
+    filename = 'seq' + str(seq_idx) + '.gif'
+    path = os.path.join(output, filename)
+    imageio.mimsave(path, image_seq, duration=0.1, loop=0)
