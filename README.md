@@ -4,7 +4,8 @@ This repository provides a MovingMNIST class to load the Moving MNIST with annot
 ![Alt text](images/seq1.gif)
 ![Alt text](images/seq2.gif)
 ![Alt text](images/seq3.gif)
-![Alt text](images/seq4.gif)
+![Alt text](images/seq4.gif)    
+**Note:** The dataset includes only the digits 0, 1, 2, and 3.
 
 ## Installation
 To use this code, you will need to have the following dependencies installed:
