@@ -13,7 +13,7 @@ num_sequences = 6
 size = (128, 128)
 
 
-dataset = MovingMNIST(root=root, download=False)
+dataset = MovingMNIST(root=root, download=True)
 mnist = DataLoader(dataset, batch_size=num_sequences, shuffle=True)
 
 
